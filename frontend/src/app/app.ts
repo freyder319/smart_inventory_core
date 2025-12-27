@@ -34,11 +34,29 @@ import { ProductFormComponent } from './product-form/product-form';
       [products]="products"
       (onMove)="handleMove($event)">
     </app-inventory-movement>
+<div class="inventory-section">
+
+  <div class="table-container">
+
+    <div class="table-header">
+      <h3 class="section-title">Inventario</h3>
+
+      <div class="filter-buttons">
+        <button (click)="loadAllProducts()">Ver todos</button>
+        <button class="alert-btn" (click)="loadAlertProducts()">
+          Ver solo en alerta
+        </button>
+      </div>
+    </div>
 
     <app-product-list
       [products]="products">
     </app-product-list>
+
   </div>
+
+</div>
+
 
   `,
   styleUrls: ['./app.css']
@@ -59,6 +77,17 @@ export class App implements OnInit {
 
   loadProducts() {
     this.productsService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+  }
+  loadAllProducts() {
+  this.productsService.getProducts().subscribe(data => {
+    this.products = data;
+  });
+}
+
+  loadAlertProducts() {
+    this.productsService.getAlertProducts().subscribe(data => {
       this.products = data;
     });
   }

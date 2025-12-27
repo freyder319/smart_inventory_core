@@ -52,3 +52,42 @@
   color: #065f46;
   border: 1px solid #a7f3d0;
 }
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.alert-btn {
+  background-color: #f44336;
+  color: white;
+}
+.table-container {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.alert-btn {
+  background-color: #e53935;
+  color: white;
+}

@@ -25,4 +25,7 @@ export class ProductsService{
   createProduct(product:Omit<Product,'id'|'status'>){
     return this.http.post<Product>(this.apiUrl,product);
   }
+  getAlertProducts(): Observable<Product[]> {
+  return this.http.get<Product[]>(`${this.apiUrl}/alerts`);
+}
 }
