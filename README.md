@@ -75,3 +75,7 @@ En un entorno productivo, este comportamiento se solucionaría con Persistencia 
 ## Pruebas
 
 Se implementó una prueba unitaria básica en el servicio de productos utilizando Jest.
+
+## Autor
+Freydér Díaz Peñuela  
+Aprendiz SENA – Análisis y Desarrollo de Software
