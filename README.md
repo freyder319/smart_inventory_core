@@ -72,3 +72,6 @@ Esta decisión fue tomada de forma consciente para garantizar consistencia sin a
 
 En un entorno productivo, este comportamiento se solucionaría con Persistencia en base de datos
 
+## Pruebas
+
+Se implementó una prueba unitaria básica en el servicio de productos utilizando Jest.
