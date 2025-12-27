@@ -34,4 +34,15 @@ export class ProductsService {
     product.currentStock += quantity;
     return this.productRepo.save(product);
   }
+  async findAlerts() {
+  const products = await this.productRepo
+    .createQueryBuilder('product')
+    .where('product.currentStock <= product.minStock')
+    .getMany();
+
+  return products.map(product => ({
+    ...product,
+    status: 'Alert',
+  }));
+}
 }

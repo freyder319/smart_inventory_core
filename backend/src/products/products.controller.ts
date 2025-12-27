@@ -16,4 +16,9 @@ export class ProductsController {
   findAll() {
     return this.productsService.findAll();
   }
+  @Get('alerts')
+  getAlerts() {
+    return this.productsService.findAlerts();
+  }
+
 }
