@@ -92,8 +92,8 @@ export class App implements OnInit {
   price: number;
   currentStock: number;
   minStock: number;
-}) {
-  this.productsService.createProduct(product).subscribe(() => {
+  }) {
+  this.productsService.createProduct(product).subscribe((createdProduct: any) => {
     this.loadProducts();
     this.showSuccess(' Producto registrado correctamente');
   });
