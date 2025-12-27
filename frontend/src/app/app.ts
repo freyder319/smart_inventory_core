@@ -21,6 +21,9 @@ import { ProductFormComponent } from './product-form/product-form';
   <p class="app-subtitle">
   Gestión simple y eficiente de productos
   </p>
+  <div *ngIf="successMessage" class="alert success">
+  {{ successMessage }}
+  </div>
   <div class="top-section">
     <app-product-form
       (onCreate)="handleCreateProduct($event)">
@@ -41,6 +44,8 @@ import { ProductFormComponent } from './product-form/product-form';
   styleUrls: ['./app.css']
 })
 export class App implements OnInit {
+  successMessage: string | null = null;
+
   products: Product[] = [];
 
   constructor(
@@ -57,7 +62,13 @@ export class App implements OnInit {
       this.products = data;
     });
   }
+  showSuccess(message: string) {
+  this.successMessage = message;
 
+  setTimeout(() => {
+    this.successMessage = null;
+  }, 3000); 
+  }
   handleMove(event: {
     productId: number;
     type: string;
@@ -73,6 +84,7 @@ export class App implements OnInit {
       })
       .subscribe(() => {
         this.loadProducts();
+        this.showSuccess('Movimiento de inventario registrado');
       });
   }
   handleCreateProduct(product: {
@@ -83,6 +95,8 @@ export class App implements OnInit {
 }) {
   this.productsService.createProduct(product).subscribe(() => {
     this.loadProducts();
+    this.showSuccess(' Producto registrado correctamente');
   });
 }
+
 }
