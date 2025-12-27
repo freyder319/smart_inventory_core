@@ -67,10 +67,15 @@ import { InventoryService } from './services/inventory';
     <button (click)="move(+productId.value, type.value, +qty.value)">
       Aplicar
     </button>
+    <p *ngIf="alertMessage" style="color:red; font-weight:bold;">
+      {{ alertMessage }}
+    </p>
   `,
 })
 export class App implements OnInit {
   products: Product[] = [];
+  alertMessage = '';
+
 
   constructor(
     private productsService: ProductsService,
@@ -87,29 +92,31 @@ export class App implements OnInit {
     });
   }
 
-move(productId: number, type: string, quantity: number) {
-  const movementType = type === 'IN' ? 'IN' : 'OUT';
+  move(productId: number, type: string, quantity: number) {
+    this.alertMessage = '';
 
-  this.inventoryService
-    .createMovement({
-      productId,
-      type: movementType,
-      quantity,
-    })
-    .subscribe(() => {
-      this.loadProducts();
-    });
+    if (!quantity || quantity <= 0) {
+      this.alertMessage = 'La cantidad debe ser mayor a 0';
+      return;
+    }
+
+    const movementType = type === 'IN' ? 'IN' : 'OUT';
+
+    this.inventoryService
+      .createMovement({ productId, type: movementType, quantity })
+      .subscribe({
+        next: () => {
+          this.loadProducts();
+        },
+        error: (err) => {
+          this.alertMessage = err.error?.message || 'Error al registrar movimiento';
+        }
+      });
   }
-  addProduct(
-  name: string,
-  price: number,
-  currentStock: number,
-  minStock: number
-) {
-  this.productsService
-    .createProduct({ name, price, currentStock, minStock })
-    .subscribe(() => {
-      this.loadProducts();
-    });
-}
+  addProduct(name: string,price: number,currentStock: number,minStock: number) {
+    this.productsService.createProduct({ name, price, currentStock, minStock })
+      .subscribe(() => {
+        this.loadProducts();;
+      });
+    } 
 }

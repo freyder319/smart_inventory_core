@@ -1,0 +1,24 @@
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Mínimo</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.currentStock }}</td>
+      <td>{{ product.minStock }}</td>
+      <td
+        [style.color]="product.status === 'Alert' ? 'red' : 'green'">
+        {{ product.status }}
+      </td>
+    </tr>
+  </tbody>
+</table>

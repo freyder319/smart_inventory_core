@@ -1,0 +1,23 @@
+<h3>Movimiento de inventario</h3>
+
+<select #productId>
+  <option *ngFor="let p of products" [value]="p.id">
+    {{ p.name }}
+  </option>
+</select>
+
+<select #type>
+  <option value="IN">Entrada</option>
+  <option value="OUT">Salida</option>
+</select>
+
+<input type="number" #qty />
+
+<button
+  (click)="onMove.emit({
+    productId: +productId.value,
+    type: type.value,
+    quantity: +qty.value
+  })">
+  Aplicar
+</button>
