@@ -9,6 +9,18 @@ import { InventoryService } from './services/inventory';
   standalone: true,
   imports: [CommonModule],
   template: `
+  <h3>Nuevo producto</h3>
+  <input #name placeholder="Nombre" />
+  <input type="number" #price placeholder="Precio" />
+  <input type="number" #stock placeholder="Stock inicial" />
+  <input type="number" #minStock placeholder="Stock mínimo" />
+
+  <button
+    (click)="addProduct(name.value, +price.value, +stock.value, +minStock.value)">
+    Agregar producto
+  </button>
+
+  <hr />
     <h2>Productos</h2>
 
     <table border="1" cellpadding="8">
@@ -88,4 +100,16 @@ move(productId: number, type: string, quantity: number) {
       this.loadProducts();
     });
   }
+  addProduct(
+  name: string,
+  price: number,
+  currentStock: number,
+  minStock: number
+) {
+  this.productsService
+    .createProduct({ name, price, currentStock, minStock })
+    .subscribe(() => {
+      this.loadProducts();
+    });
+}
 }
