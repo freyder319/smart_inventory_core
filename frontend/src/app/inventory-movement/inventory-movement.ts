@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-inventory-movement',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './inventory-movement.component.html',
+  templateUrl: './inventory-movement.html',
+  styleUrls: ['./inventory-movement.css'],
 })
 export class InventoryMovementComponent {
   @Input() products: any[] = [];
@@ -14,4 +15,5 @@ export class InventoryMovementComponent {
     type: string;
     quantity: number;
   }>();
+  alertMessage = '';
 }

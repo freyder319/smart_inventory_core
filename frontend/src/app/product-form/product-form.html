@@ -1,0 +1,35 @@
+<div class="card">
+  <h3 class="section-title"> Nuevo producto</h3>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Nombre</label>
+      <input #name placeholder="Ej: Teclado" />
+    </div>
+
+    <div class="field">
+      <label>Precio</label>
+      <input type="number" #price placeholder="Ej: 50000" />
+    </div>
+
+    <div class="field">
+      <label>Stock inicial</label>
+      <input type="number" #stock placeholder="Ej: 10" />
+    </div>
+
+    <div class="field">
+      <label>Stock mínimo</label>
+      <input type="number" #minStock placeholder="Ej: 5" />
+    </div>
+  </div>
+
+  <button
+    (click)="onCreate.emit({
+      name: name.value,
+      price: +price.value,
+      currentStock: +stock.value,
+      minStock: +minStock.value
+    })">
+    Guardar producto
+  </button>
+</div>

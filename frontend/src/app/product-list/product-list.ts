@@ -6,7 +6,8 @@ import { Product } from '../services/products';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './product-list.component.html',
+  templateUrl: './product-list.html',
+  styleUrls: ['./product-list.css'],
 })
 export class ProductListComponent {
   @Input() products: Product[] = [];

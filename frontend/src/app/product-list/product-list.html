@@ -1,24 +1,34 @@
-<table border="1" cellpadding="8">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Precio</th>
-      <th>Stock</th>
-      <th>Mínimo</th>
-      <th>Estado</th>
-    </tr>
-  </thead>
+<div class="table-card">
+  <h3 class="section-title">Inventario</h3>
 
-  <tbody>
-    <tr *ngFor="let product of products">
-      <td>{{ product.name }}</td>
-      <td>{{ product.price }}</td>
-      <td>{{ product.currentStock }}</td>
-      <td>{{ product.minStock }}</td>
-      <td
-        [style.color]="product.status === 'Alert' ? 'red' : 'green'">
-        {{ product.status }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Mínimo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.currentStock }}</td>
+        <td>{{ product.minStock }}</td>
+        <td>
+          <span
+            class="status"
+            [ngClass]="{
+              ok: product.status === 'Ok',
+              alert: product.status === 'Alert'
+            }">
+            {{ product.status }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

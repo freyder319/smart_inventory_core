@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  margin: 20px 0;
+}
+.top-section {
+  max-width: 900px;
+  margin: 0 auto 24px auto;
+}
+.app-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 4px;
+  color: #1f2937;
+}
+
+.app-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+.inventory-section app-inventory-movement {
+  display: block;
+  margin-bottom: 12px;
+}
+.inventory-section app-inventory-movement {
+  display: block;
+  margin-bottom: 12px; 
+}
+.app-title {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.section-title {
+  font-weight: 600;
+}

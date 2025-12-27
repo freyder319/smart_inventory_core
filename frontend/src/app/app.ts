@@ -1,81 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductListComponent } from './product-list/product-list';
+import { InventoryMovementComponent } from './inventory-movement/inventory-movement';
 import { Product, ProductsService } from './services/products';
 import { InventoryService } from './services/inventory';
+import { ProductFormComponent } from './product-form/product-form';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    ProductListComponent,
+    InventoryMovementComponent,
+    ProductFormComponent
+  ],
   template: `
-  <h3>Nuevo producto</h3>
-  <input #name placeholder="Nombre" />
-  <input type="number" #price placeholder="Precio" />
-  <input type="number" #stock placeholder="Stock inicial" />
-  <input type="number" #minStock placeholder="Stock mínimo" />
+  <h1 class="app-title">Smart Inventory</h1>
+  <p class="app-subtitle">
+  Gestión simple y eficiente de productos
+  </p>
+  <div class="top-section">
+    <app-product-form
+      (onCreate)="handleCreateProduct($event)">
+    </app-product-form>
+  </div>
+  <div class="inventory-section">
+    <app-inventory-movement
+      [products]="products"
+      (onMove)="handleMove($event)">
+    </app-inventory-movement>
 
-  <button
-    (click)="addProduct(name.value, +price.value, +stock.value, +minStock.value)">
-    Agregar producto
-  </button>
+    <app-product-list
+      [products]="products">
+    </app-product-list>
+  </div>
 
-  <hr />
-    <h2>Productos</h2>
-
-    <table border="1" cellpadding="8">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Stock</th>
-          <th>Mínimo</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.name }}</td>
-          <td>{{ product.currentStock }}</td>
-          <td>{{ product.minStock }}</td>
-          <td
-            [style.color]="product.status === 'Alert' ? 'red' : 'green'"
-          >
-            {{ product.status }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <hr />
-
-    <h3>Movimiento de inventario</h3>
-
-    <select #productId>
-      <option *ngFor="let p of products" [value]="p.id">
-        {{ p.name }}
-      </option>
-    </select>
-
-    <select #type>
-      <option value="IN">Entrada</option>
-      <option value="OUT">Salida</option>
-    </select>
-
-    <input type="number" #qty placeholder="Cantidad" />
-
-    <button (click)="move(+productId.value, type.value, +qty.value)">
-      Aplicar
-    </button>
-    <p *ngIf="alertMessage" style="color:red; font-weight:bold;">
-      {{ alertMessage }}
-    </p>
   `,
+  styleUrls: ['./app.css']
 })
 export class App implements OnInit {
   products: Product[] = [];
-  alertMessage = '';
-
 
   constructor(
     private productsService: ProductsService,
@@ -92,31 +58,31 @@ export class App implements OnInit {
     });
   }
 
-  move(productId: number, type: string, quantity: number) {
-    this.alertMessage = '';
-
-    if (!quantity || quantity <= 0) {
-      this.alertMessage = 'La cantidad debe ser mayor a 0';
-      return;
-    }
-
-    const movementType = type === 'IN' ? 'IN' : 'OUT';
+  handleMove(event: {
+    productId: number;
+    type: string;
+    quantity: number;
+  }) {
+    const movementType = event.type === 'IN' ? 'IN' : 'OUT';
 
     this.inventoryService
-      .createMovement({ productId, type: movementType, quantity })
-      .subscribe({
-        next: () => {
-          this.loadProducts();
-        },
-        error: (err) => {
-          this.alertMessage = err.error?.message || 'Error al registrar movimiento';
-        }
+      .createMovement({
+        productId: event.productId,
+        type: movementType,
+        quantity: event.quantity
+      })
+      .subscribe(() => {
+        this.loadProducts();
       });
   }
-  addProduct(name: string,price: number,currentStock: number,minStock: number) {
-    this.productsService.createProduct({ name, price, currentStock, minStock })
-      .subscribe(() => {
-        this.loadProducts();;
-      });
-    } 
+  handleCreateProduct(product: {
+  name: string;
+  price: number;
+  currentStock: number;
+  minStock: number;
+}) {
+  this.productsService.createProduct(product).subscribe(() => {
+    this.loadProducts();
+  });
+}
 }
