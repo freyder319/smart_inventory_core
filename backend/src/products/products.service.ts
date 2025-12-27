@@ -23,8 +23,8 @@ export class ProductsService {
     }));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(id: number):Product|undefined {
+    return this.products.find(product=>product.id===id);
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
