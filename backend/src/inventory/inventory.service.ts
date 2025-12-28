@@ -15,9 +15,18 @@ export class InventoryService {
       throw new BadRequestException('Quantity must be greater than zero');
     }
 
+    const product = await this.productsService.findOne(productId);
+
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+
+    if (type === 'OUT' && product.currentStock < quantity) {
+      throw new BadRequestException('Insufficient stock');
+    }
+
     const stockChange = type === 'IN' ? quantity : -quantity;
 
-    // 🔑 AQUÍ ESTÁ EL CAMBIO IMPORTANTE
     const updatedProduct = await this.productsService.updateStock(
       productId,
       stockChange,

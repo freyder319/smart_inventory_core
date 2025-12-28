@@ -26,11 +26,13 @@ import { InventoryService } from './services/inventory';
     <app-product-form
       (onCreate)="handleCreateProduct($event)">
     </app-product-form>
-
     <app-inventory-movement
       [products]="(products$ | async) ?? []"
       (onMove)="handleMove($event)">
     </app-inventory-movement>
+    <div *ngIf="errorMessage" class="alert error">
+      {{ errorMessage }}
+    </div>
     <div class="table-container">
       <div class="table-inner">
         <div class="table-header">
@@ -54,7 +56,7 @@ export class App {
 
   private refresh$ = new Subject<void>();
   private mode: 'ALL' | 'ALERTS' = 'ALL';
-
+  errorMessage: string | null = null;
   products$: Observable<Product[]> = this.refresh$.pipe(
     startWith(void 0),
     switchMap(() =>
@@ -85,9 +87,19 @@ export class App {
     });
   }
 
-  handleMove(event: any) {
-    this.inventoryService.createMovement(event).subscribe(() => {
+handleMove(event: any) {
+  this.inventoryService.createMovement(event).subscribe({
+    next: () => {
+      this.errorMessage = null; // limpia errores
       this.refresh$.next();
-    });
-  }
+    },
+    error: (err) => {
+      if (err.status === 400) {
+        this.errorMessage = err.error?.message || 'Stock insuficiente';
+      } else {
+        this.errorMessage = 'Ocurrió un error inesperado';
+      }
+    }
+  });
+}
 }

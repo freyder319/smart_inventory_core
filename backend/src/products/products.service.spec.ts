@@ -4,7 +4,6 @@ describe('ProductsService', () => {
   let service: ProductsService;
 
   beforeEach(() => {
-    service = new ProductsService();
   });
 
   it('should create a product', () => {
