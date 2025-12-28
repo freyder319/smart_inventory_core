@@ -36,6 +36,7 @@ FrontEnd:
 - Filtro de productos en estado de alerta
 - Alertas visuales para acciones exitosas y de Error
 ## Estructura del proyecto
+```
 Smart_inventory/
 ├── backend/
 │   ├── src/
@@ -52,7 +53,7 @@ Smart_inventory/
 │   │   ├── services/
 │   │   └── app.ts
 │   └── main.ts
-
+```
 ## Ejecución de la Prueba
 Backend:
 ```bash
