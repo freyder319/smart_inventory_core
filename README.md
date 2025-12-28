@@ -13,6 +13,10 @@ BackEnd:
 - NestJS
 - API REST
 - Almacenamiento en memoria (sin base de datos)
+- TypeORM (para tipado de entidades)
+- Jest (para pruebas unitarias)
+- Postgres
+- Postman
 FrontEnd:
 - Angular 21
 - TypeScript
@@ -21,13 +25,16 @@ FrontEnd:
 - CSS puro para estilos
 ## Funcionalidades Principales
 - Registro de productos
-- Visualización de lista de productos
-- Registro de movimientos de inventario (IN / OUT)
+- Listado de productos con estado de inventario
+- Registro de movimientos de inventario:
+  - Entradas (IN)
+  - Salidas (OUT)
 - Actualización de stock
 - Indicador de estado:
-- Ok = stock suficiente
-- Alert = stock igual o inferior al mínimo
-- Alertas visuales para acciones exitosas
+  - Ok = stock suficiente
+  - Alert = stock igual o inferior al mínimo
+- Filtro de productos en estado de alerta
+- Alertas visuales para acciones exitosas y de Error
 ## Estructura del proyecto
 Smart_inventory/
 ├── backend/
@@ -62,19 +69,25 @@ npm install
 ng serve
 ```
 El frontend se ejecuta en: http://localhost:4200
-
-## Consideraciones técnicas importantes
-El backend utiliza almacenamiento en memoria, por lo que no hay persistencia de datos.
-
-Después de crear productos o registrar movimientos, puede ser necesario refrescar la vista para reflejar el estado más reciente.
-
-Esta decisión fue tomada de forma consciente para garantizar consistencia sin agregar complejidad innecesaria (base de datos o estado global).
-
-En un entorno productivo, este comportamiento se solucionaría con Persistencia en base de datos
-
 ## Pruebas
+Se implementó una prueba unitaria en el servicio de productos
+Uso de TestingModule y mock de repositorio TypeORM
+Framework: Jest
+Ejecutar Pruebas:
+```bash
+cd backend
+npm run test
+```
+## Consideraciones técnicas importantes
+La aplicación utiliza persistencia en base de datos PostgreSQL
 
-Se implementó una prueba unitaria básica en el servicio de productos utilizando Jest.
+El frontend se actualiza automáticamente al registrar productos o movimientos
+
+La arquitectura separa claramente:
+
+Lógica de negocio (backend)
+
+Presentación y experiencia de usuario (frontend)
 
 ## Autor
 Freydér Díaz Peñuela  
