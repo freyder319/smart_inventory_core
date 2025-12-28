@@ -23,13 +23,14 @@
     </div>
   </div>
 
-  <button
-    (click)="onCreate.emit({
-      name: name.value,
-      price: +price.value,
-      currentStock: +stock.value,
-      minStock: +minStock.value
-    })">
-    Guardar producto
-  </button>
+<button
+  type="button"
+  (click)="emitCreate(
+    name.value,
+    +price.value,
+    +stock.value,
+    +minStock.value
+  )">
+  Guardar producto
+</button>
 </div>

@@ -10,10 +10,22 @@ import { CommonModule } from '@angular/common';
 })
 export class InventoryMovementComponent {
   @Input() products: any[] = [];
+
   @Output() onMove = new EventEmitter<{
     productId: number;
-    type: string;
+    type: 'IN' | 'OUT';
     quantity: number;
   }>();
-  alertMessage = '';
+
+  emitMove(
+    productId: number,
+    type: string,
+    quantity: number
+  ) {
+    this.onMove.emit({
+      productId,
+      type: type === 'IN' ? 'IN' : 'OUT',
+      quantity,
+    });
+  }
 }

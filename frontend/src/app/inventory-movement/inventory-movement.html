@@ -26,16 +26,11 @@
     </div>
   </div>
 
-  <button
-    (click)="onMove.emit({
-      productId: +productId.value,
-      type: type.value,
-      quantity: +qty.value
-    })">
-    Aplicar movimiento
-  </button>
+    <button
+        type="button"
+        (click)="emitMove(+productId.value, type.value, +qty.value)">
+        Aplicar movimiento
+    </button>
 
-  <p *ngIf="alertMessage" class="alert">
-    {{ alertMessage }}
-  </p>
+
 </div>

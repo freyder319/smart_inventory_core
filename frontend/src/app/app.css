@@ -63,6 +63,8 @@
   color: white;
 }
 .table-container {
+  max-width: 900px; 
+  margin: 0 auto;     
   background: #fff;
   padding: 16px;
   border-radius: 8px;

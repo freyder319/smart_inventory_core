@@ -10,5 +10,5 @@ import { Product } from '../services/products';
   styleUrls: ['./product-list.css'],
 })
 export class ProductListComponent {
-  @Input() products: Product[] = [];
+  @Input() products: Product[] | null = [];
 }

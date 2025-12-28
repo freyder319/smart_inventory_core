@@ -15,4 +15,18 @@ export class ProductFormComponent {
     currentStock: number;
     minStock: number;
   }>();
+
+  emitCreate(
+    name: string,
+    price: number,
+    stock: number,
+    minStock: number
+  ) {
+    this.onCreate.emit({
+      name,
+      price,
+      currentStock: stock,
+      minStock,
+    });
+  }
 }
